@@ -10,6 +10,7 @@ class SearchController < UITableViewController
     self.tableView.delegate = self
 
     @search_bar = UISearchBar.alloc.initWithFrame([[0,0],[320,44]])
+    @search_bar.placeholder = 'Search something...'
     @search_bar.delegate = self
     self.tableView.tableHeaderView = @search_bar
   end
@@ -38,11 +39,11 @@ class SearchController < UITableViewController
     @resueIdentifier ||= "CELL_IDENTIFER"
 
     cell = tableView.dequeueReusableCellWithIdentifier(@resueIdentifier) || begin
-      UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier: @resueIdentifier)
+      ScriptureCell.alloc.initWithStyle(UITableViewCellStyleSubtitle, reuseIdentifier: @resueIdentifier)
     end
     scripture =  @scriptures[indexPath.row]
-    cell.textLabel.text = "#{scripture.title} - #{scripture.text}"
-
+    cell.title.text = scripture.title
+    cell.setText(scripture.text)
     cell
   end
 
@@ -55,6 +56,11 @@ class SearchController < UITableViewController
 
     tableView.deselectRowAtIndexPath(indexPath, animated:true)
     self.parentViewController.pushViewController(detail_view, animated:true)
+  end
+
+  def tableView(tableView, heightForRowAtIndexPath:indexPath)
+    scripture_cell = self.tableView(self.tableView, cellForRowAtIndexPath: indexPath)
+    scripture_cell.getViewHeight
   end
 end
 

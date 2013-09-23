@@ -8,7 +8,7 @@ class DetailView < UIViewController
     self.title = @scripture.title
     self.view.backgroundColor = UIColor.whiteColor
 
-    @text_view = UITextView.alloc.initWithFrame([[10, 10], [300, 450]])
+    @text_view = UITextView.alloc.initWithFrame([[10, 10], [300, 470]])
     @text_view.editable = false
     @text_view.text = @scripture.text
     @text_view.font = UIFont.systemFontOfSize(22)
